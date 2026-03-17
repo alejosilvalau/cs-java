@@ -1,0 +1,94 @@
+# IDE and Editor Files
+.metadata/
+.classpath
+.project
+.settings/
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+*.sublime-workspace
+*.sublime-project
+.DS_Store
+
+# Build and Compilation
+bin/
+build/
+dist/
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Gradle
+.gradle/
+gradle-wrapper.jar
+gradlew
+gradlew.bat
+
+# Maven
+.m2/
+*.pom
+
+# Dependency Management
+node_modules/
+package-lock.json
+yarn.lock
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+coverage/
+
+# Logs
+*.log
+logs/
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*~
+.swp
+.swo
+*.swp
+*.swn
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Runtime and Cache
+.cache/
+*.db
+*.sqlite
+*.sqlite3
+
+# OS-specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IntelliJ IDEA specific
+out/
+*.orig
+
+# Eclipse specific
+.recommenders/
+.metadata
+
+# Local development
+local.properties
+
