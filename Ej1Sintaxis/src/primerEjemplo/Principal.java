@@ -18,18 +18,16 @@ public class Principal {
 		
 		Scanner lector = new Scanner(System.in);
 		
-		String despedida= JOptionPane.showInputDialog("Ingrese saludo final");
-		
-		//variablesEIfs(n1, n2, texto2, lector);
-//		 iterar(lector);
-		
-		
-		 lector.close();
+//		String despedida = JOptionPane.showInputDialog("Ingrese saludo final");
+//		JOptionPane.showMessageDialog(null, despedida);
 		
 		//String despedida=JOptionPane.showInputDialog("Ingrese saludo final");
-		
 		//JOptionPane.showMessageDialog(null, despedida);
+
+		//variablesEIfs(n1, n2, texto2, lector);
+		 iterar(lector);
 		
+		 lector.close();
 	}
 	
 	private static void iterar(Scanner lector) {
@@ -40,6 +38,7 @@ public class Principal {
 			System.out.println("Ingrese la palabra "+(i+1));
 			palabras[i]=lector.nextLine();
 		}
+		
 		System.out.println();
 		System.out.println("iterar con for");
 		for (int i = 0; i < palabras.length; i++) {
