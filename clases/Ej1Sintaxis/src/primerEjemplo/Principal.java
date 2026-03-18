@@ -21,11 +21,11 @@ public class Principal {
     // String despedida = JOptionPane.showInputDialog("Ingrese saludo final");
     // JOptionPane.showMessageDialog(null, despedida);
 
-    // String despedida=JOptionPane.showInputDialog("Ingrese saludo final");
-    // JOptionPane.showMessageDialog(null, despedida);
+    String despedida = JOptionPane.showInputDialog("Ingrese saludo final");
+    JOptionPane.showMessageDialog(null, despedida);
 
     // variablesEIfs(n1, n2, texto2, lector);
-    iterar(lector);
+    // iterar(lector);
 
     lector.close();
   }
