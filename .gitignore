@@ -92,3 +92,5 @@ out/
 # Local development
 local.properties
 
+# Database LSP
+.sqllsrc.json
