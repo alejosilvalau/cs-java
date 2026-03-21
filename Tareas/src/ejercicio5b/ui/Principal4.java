@@ -1,4 +1,4 @@
-package ejercicio5b;
+package ejercicio5b.ui;
 
 import java.util.LinkedList;
 import java.util.Scanner;
