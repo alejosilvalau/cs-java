@@ -1,9 +1,12 @@
 package ejercicio6a.data;
 
-import ejercicio6a.entities.*;
-
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
+
+import ejercicio6a.entities.Product;
 
 public class DataProduct {
 
@@ -55,8 +58,8 @@ public class DataProduct {
     ResultSet rs = null;
 
     try {
-      stmt = DbConnector.getInstancia().getConn()
-          .prepareStatement("select id, name, description, price, stock, shippingIncluded from product where id=?");
+      stmt = DbConnector.getInstancia().getConn().prepareStatement(
+          "select id, name, description, price, stock, shippingIncluded from product where id=?");
       stmt.setInt(1, product.getId());
       rs = stmt.executeQuery();
 
@@ -66,8 +69,10 @@ public class DataProduct {
         product.setPrice(rs.getDouble("price"));
         product.setStock(rs.getInt("stock"));
         product.setShippingIncluded(rs.getBoolean("shippingIncluded"));
+      } else {
+        // If the product is not found, set its ID to -1 to indicate it doesn't exist
+        product.setId(-1);
       }
-
     } catch (SQLException e) {
       e.printStackTrace();
 
@@ -91,10 +96,9 @@ public class DataProduct {
     ResultSet rs = null;
 
     try {
-      stmt = DbConnector.getInstancia().getConn()
-          .prepareStatement(
-              "insert into product (name, description, price, stock, shippingIncluded) values (?, ?, ?, ?, ?)",
-              PreparedStatement.RETURN_GENERATED_KEYS);
+      stmt = DbConnector.getInstancia().getConn().prepareStatement(
+          "insert into product (name, description, price, stock, shippingIncluded) values (?, ?, ?, ?, ?)",
+          PreparedStatement.RETURN_GENERATED_KEYS);
 
       stmt.setString(1, product.getName());
       stmt.setString(2, product.getDescription());
@@ -129,8 +133,7 @@ public class DataProduct {
     try {
       this.getById(product);
 
-      stmt = DbConnector.getInstancia().getConn()
-          .prepareStatement("delete from product where id=?");
+      stmt = DbConnector.getInstancia().getConn().prepareStatement("delete from product where id=?");
       stmt.setInt(1, product.getId());
       stmt.executeUpdate();
 
@@ -153,9 +156,8 @@ public class DataProduct {
     PreparedStatement stmt = null;
 
     try {
-      stmt = DbConnector.getInstancia().getConn()
-          .prepareStatement(
-              "update product set name=?, description=?, price=?, stock=?, shippingIncluded=? where id=?");
+      stmt = DbConnector.getInstancia().getConn().prepareStatement(
+          "update product set name=?, description=?, price=?, stock=?, shippingIncluded=? where id=?");
 
       stmt.setString(1, product.getName());
       stmt.setString(2, product.getDescription());

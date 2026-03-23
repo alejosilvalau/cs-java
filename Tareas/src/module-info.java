@@ -5,5 +5,5 @@
  * 
  */
 module Tareas {
-  requires java.sql;
+	requires java.sql;
 }

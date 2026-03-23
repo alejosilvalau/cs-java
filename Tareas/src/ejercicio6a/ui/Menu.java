@@ -26,7 +26,7 @@ public class Menu {
       executeCommand(command);
       System.out.println();
 
-    } while (!command.equalsIgnoreCase("exit"));
+    } while (!Set.of("exit", "e").contains(command.toLowerCase()));
 
     s.close();
   }
@@ -34,19 +34,24 @@ public class Menu {
   private void executeCommand(String command) {
     switch (command) {
       case "list":
+      case "l":
         System.out.println(ctrlList.getAll());
         break;
       case "search":
-        System.out.println(search().toStringComplete());
+      case "s":
+        System.out.println(this.search().toStringComplete());
         break;
       case "new":
-        System.out.println(add().toStringComplete());
+      case "n":
+        System.out.println(this.add().toStringComplete());
         break;
       case "delete":
-        System.out.println(delete().toStringComplete());
+      case "d":
+        System.out.println(this.delete().toStringComplete());
         break;
       case "update":
-        System.out.println(update().toStringComplete());
+      case "u":
+        System.out.println(this.update().toStringComplete());
         break;
       default:
         break;
@@ -55,11 +60,12 @@ public class Menu {
 
   private String getCommand() {
     System.out.println("Enter the command according to the option you want to perform");
-    System.out.println("list\t\tlist all products");
-    System.out.println("search\t\tsearch a product");
-    System.out.println("new\t\tcreate a new product");
-    System.out.println("delete\t\tdelete a product");
-    System.out.println("update\t\tupdate a product");
+    System.out.println("list\t(l)\t\tlist all products");
+    System.out.println("search\t(s)\t\tsearch a product");
+    System.out.println("new\t(n)\t\tcreate a new product");
+    System.out.println("delete\t(d)\t\tdelete a product");
+    System.out.println("update\t(u)\t\tupdate a product");
+    System.out.println("exit\t(e)\t\texit the application");
     System.out.println();
     System.out.print("command: ");
     return s.nextLine();
@@ -120,6 +126,12 @@ public class Menu {
 
   private Product update() {
     Product productToUpdate = this.search();
+
+    if (productToUpdate == null) {
+      System.out.println("");
+      System.out.println("Product not found");
+      return null;
+    }
 
     System.out.println("");
     System.out.println("Current Product data:");

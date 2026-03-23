@@ -6,12 +6,12 @@ public class DbConnector {
 
   private static DbConnector instancia;
 
-  private String driver = "com.mysql.cj.jdbc.Driver";
-  private String host = "localhost";
-  private String port = "3306";
-  private String user = "java";
-  private String password = "himitsu";
-  private String db = "javaMarket";
+  private final String driver = "com.mysql.cj.jdbc.Driver";
+  private final String host = "localhost";
+  private final String port = "3306";
+  private final String user = "java";
+  private final String password = "himitsu";
+  private final String db = "javaMarket";
   private int conectados = 0;
   private Connection conn = null;
 
