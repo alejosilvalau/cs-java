@@ -1,6 +1,6 @@
-create database if not exists dbJavaMarket;
+create database if not exists javaMarket;
 
-use dbJavaMarket;
+use javaMarket;
 
 drop table if exists product;
 

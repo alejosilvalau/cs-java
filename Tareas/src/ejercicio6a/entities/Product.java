@@ -58,6 +58,12 @@ public class Product {
 
   @Override
   public String toString() {
-    return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+    return "\nProduct [id=" + this.getId() + ", name=" + this.getName() + ", price=" + this.getPrice() + "]";
+  }
+
+  public String toStringComplete() {
+    return "\nProduct [id=" + this.getId() + ", name=" + this.getName() + ", description=" + this.getDescription()
+        + ", price=" + this.getPrice() + ", stock=" + this.getStock() + ", shippingIncluded="
+        + this.isShippingIncluded() + "]";
   }
 }
