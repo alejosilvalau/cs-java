@@ -148,4 +148,35 @@ public class DataProduct {
       }
     }
   }
+
+  public void update(Product product) {
+    PreparedStatement stmt = null;
+
+    try {
+      stmt = DbConnector.getInstancia().getConn()
+          .prepareStatement(
+              "update product set name=?, description=?, price=?, stock=?, shippingIncluded=? where id=?");
+
+      stmt.setString(1, product.getName());
+      stmt.setString(2, product.getDescription());
+      stmt.setDouble(3, product.getPrice());
+      stmt.setInt(4, product.getStock());
+      stmt.setBoolean(5, product.isShippingIncluded());
+      stmt.setInt(6, product.getId());
+      stmt.executeUpdate();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+
+    } finally {
+      try {
+        if (stmt != null) {
+          stmt.close();
+        }
+        DbConnector.getInstancia().releaseConn();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
 }
