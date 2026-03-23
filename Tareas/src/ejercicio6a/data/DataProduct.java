@@ -1,6 +1,5 @@
 package ejercicio6a.data;
 
-//orig
 import ejercicio6a.entities.*;
 
 import java.sql.*;
@@ -51,10 +50,9 @@ public class DataProduct {
     return prod;
   }
 
-  public Product getById(Product product) {
+  public void getById(Product product) {
     PreparedStatement stmt = null;
     ResultSet rs = null;
-    Product p = null;
 
     try {
       stmt = DbConnector.getInstancia().getConn()
@@ -63,13 +61,11 @@ public class DataProduct {
       rs = stmt.executeQuery();
 
       if (rs != null && rs.next()) {
-        p = new Product();
-        p.setId(rs.getInt("id"));
-        p.setName(rs.getString("name"));
-        p.setDescription(rs.getString("description"));
-        p.setPrice(rs.getDouble("price"));
-        p.setStock(rs.getInt("stock"));
-        p.setShippingIncluded(rs.getBoolean("shippingIncluded"));
+        product.setName(rs.getString("name"));
+        product.setDescription(rs.getString("description"));
+        product.setPrice(rs.getDouble("price"));
+        product.setStock(rs.getInt("stock"));
+        product.setShippingIncluded(rs.getBoolean("shippingIncluded"));
       }
 
     } catch (SQLException e) {
@@ -88,7 +84,42 @@ public class DataProduct {
         e.printStackTrace();
       }
     }
+  }
 
-    return p;
+  public void add(Product product) {
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+      stmt = DbConnector.getInstancia().getConn()
+          .prepareStatement(
+              "insert into product (name, description, price, stock, shippingIncluded) values (?, ?, ?, ?, ?)",
+              PreparedStatement.RETURN_GENERATED_KEYS);
+
+      stmt.setString(1, product.getName());
+      stmt.setString(2, product.getDescription());
+      stmt.setDouble(3, product.getPrice());
+      stmt.setInt(4, product.getStock());
+      stmt.setBoolean(5, product.isShippingIncluded());
+      stmt.executeUpdate();
+
+      rs = stmt.getGeneratedKeys();
+      if (rs != null && rs.next()) {
+        product.setId(rs.getInt(1));
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+
+    } finally {
+      try {
+        if (stmt != null) {
+          stmt.close();
+        }
+        DbConnector.getInstancia().releaseConn();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }

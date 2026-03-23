@@ -3,15 +3,15 @@ package ejercicio6a.logic;
 import ejercicio6a.data.DataProduct;
 import ejercicio6a.entities.Product;
 
-public class Search {
+public class Add {
   private DataProduct dataProduct;
 
-  public Search() {
+  public Add() {
     dataProduct = new DataProduct();
   }
 
-  public void getById(Product product) {
-    dataProduct.getById(product);
+  public void add(Product product) {
+    dataProduct.add(product);
   }
 
 }
