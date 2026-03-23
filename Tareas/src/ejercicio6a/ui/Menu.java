@@ -11,6 +11,7 @@ public class Menu {
   List ctrlList = new List();
   Search ctrlSearch = new Search();
   Add ctrlAdd = new Add();
+  Delete ctrlDelete = new Delete();
 
   public void start() {
     s = new Scanner(System.in);
@@ -40,7 +41,7 @@ public class Menu {
         System.out.println(add());
         break;
       case "delete":
-
+        System.out.println(delete());
         break;
       case "update":
 
@@ -98,5 +99,19 @@ public class Menu {
 
     ctrlAdd.add(newProduct);
     return newProduct.toStringComplete();
+  }
+
+  private String delete() {
+    System.out.println("");
+    System.out.print("Enter the product id: ");
+    int id = Integer.parseInt(s.nextLine());
+
+    Product p = new Product();
+    p.setId(id);
+    ctrlDelete.delete(p);
+
+    System.out.println("");
+    System.out.println("Product deleted successfully");
+    return p.toStringComplete();
   }
 }
