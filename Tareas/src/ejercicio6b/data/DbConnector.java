@@ -1,4 +1,4 @@
-package ejercicio6a.data;
+package ejercicio6b.data;
 
 import java.sql.*;
 
@@ -11,7 +11,7 @@ public class DbConnector {
   private final String port = "3306";
   private final String user = "java";
   private final String password = "himitsu";
-  private final String db = "javaMarket";
+  private final String db = "javaMarket2";
   private int conectados = 0;
   private Connection conn = null;
 
