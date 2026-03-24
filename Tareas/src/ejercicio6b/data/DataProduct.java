@@ -98,7 +98,7 @@ public class DataProduct {
 
     try {
       stmt = DbConnector.getInstancia().getConn().prepareStatement(
-          "insert into product (name, description, price, stock, shippingIncluded) values (?, ?, ?, ?, ?)",
+          "insert into product (name, description, price, stock, shippingIncluded, disabledOn) values (?, ?, ?, ?, ?, ?)",
           PreparedStatement.RETURN_GENERATED_KEYS);
 
       stmt.setString(1, product.getName());
@@ -106,6 +106,7 @@ public class DataProduct {
       stmt.setDouble(3, product.getPrice());
       stmt.setInt(4, product.getStock());
       stmt.setBoolean(5, product.isShippingIncluded());
+      stmt.setObject(6, product.getDisabledOn());
       stmt.executeUpdate();
 
       rs = stmt.getGeneratedKeys();
@@ -118,6 +119,9 @@ public class DataProduct {
 
     } finally {
       try {
+        if (rs != null) {
+          rs.close();
+        }
         if (stmt != null) {
           stmt.close();
         }
@@ -158,14 +162,15 @@ public class DataProduct {
 
     try {
       stmt = DbConnector.getInstancia().getConn().prepareStatement(
-          "update product set name=?, description=?, price=?, stock=?, shippingIncluded=? where id=?");
+          "update product set name=?, description=?, price=?, stock=?, shippingIncluded=?, disabledOn=? where id=?");
 
       stmt.setString(1, product.getName());
       stmt.setString(2, product.getDescription());
       stmt.setDouble(3, product.getPrice());
       stmt.setInt(4, product.getStock());
       stmt.setBoolean(5, product.isShippingIncluded());
-      stmt.setInt(6, product.getId());
+      stmt.setObject(6, product.getDisabledOn());
+      stmt.setInt(7, product.getId());
       stmt.executeUpdate();
 
     } catch (SQLException e) {

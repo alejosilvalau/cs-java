@@ -1,10 +1,13 @@
 package ejercicio6b.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.Set;
 
 import ejercicio6b.entities.Product;
 import ejercicio6b.logic.*;
+import ejercicio6b.utils.DateUtils;
 
 public class Menu {
   Scanner s = null;
@@ -101,11 +104,11 @@ public class Menu {
     System.out.print("Enter the product stock: ");
     newProduct.setStock(Integer.parseInt(s.nextLine()));
 
-    System.out.println("");
-    System.out.print("Is the shipping included? (y/n): ");
-    String continueResponse = s.nextLine();
-    newProduct.setShippingIncluded(Set.of("1", "y").contains(continueResponse.toLowerCase()));
+    newProduct.setShippingIncluded(this.confirmationStep("Is the shipping included?"));
 
+    if (this.confirmationStep("Do you want to set a disabled on date?")) {
+      newProduct.setDisabledOn(this.dateInput("Enter the product disabled on date"));
+    }
     ctrlAdd.add(newProduct);
     return newProduct;
   }
@@ -134,7 +137,7 @@ public class Menu {
     }
 
     System.out.println("");
-    System.out.println("Current Product data:");
+    System.out.print("Current Product data:");
     System.out.println(productToUpdate.toStringComplete());
 
     if (this.wantToUpdate("name")) {
@@ -162,11 +165,14 @@ public class Menu {
     }
 
     if (this.wantToUpdate("shipping included")) {
-      System.out.println("");
-      System.out.print(
-          "Is the shipping included(" + (productToUpdate.isShippingIncluded() ? "y" : "n") + ")? (y/n): ");
-      String continueResponse = s.nextLine();
-      productToUpdate.setShippingIncluded(Set.of("1", "y").contains(continueResponse.toLowerCase()));
+      productToUpdate.setShippingIncluded(
+          this.confirmationStep("Is the shipping included?(" + productToUpdate.isShippingIncluded() + ")"));
+    }
+
+    if (this.wantToUpdate("disabeld on")) {
+      productToUpdate
+          .setDisabledOn(
+              this.dateInput("Enter the new product disabled on date(" + productToUpdate.getDisabledOn() + ")"));
     }
 
     ctrlUpdate.update(productToUpdate);
@@ -176,10 +182,21 @@ public class Menu {
     return productToUpdate;
   }
 
-  private boolean wantToUpdate(String field) {
+  private boolean confirmationStep(String message) {
     System.out.println("");
-    System.out.print("Do you want to update the " + field + "? (y/n): ");
+    System.out.print(message + " (y/n): ");
     String updateResponse = s.nextLine();
     return Set.of("1", "y").contains(updateResponse.toLowerCase());
+  }
+
+  private boolean wantToUpdate(String field) {
+    return confirmationStep("Do you want to update the " + field + "?");
+  }
+
+  private LocalDateTime dateInput(String message) {
+    System.out.println("");
+    System.out.print(message + " (" + DateUtils.DATE_TIME_FORMAT + "): ");
+    return LocalDateTime.parse(s.nextLine(), DateUtils.DATE_TIME_FORMATTER);
+
   }
 }
