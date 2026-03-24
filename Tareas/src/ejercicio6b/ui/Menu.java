@@ -1,6 +1,7 @@
 package ejercicio6b.ui;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.Set;
@@ -172,7 +173,8 @@ public class Menu {
     if (this.wantToUpdate("disabeld on")) {
       productToUpdate
           .setDisabledOn(
-              this.dateInput("Enter the new product disabled on date(" + productToUpdate.getDisabledOn() + ")"));
+              this.dateInput(
+                  "Enter the new product disabled on date(" + productToUpdate.getDisabledOnFormatted() + ")"));
     }
 
     ctrlUpdate.update(productToUpdate);
@@ -193,10 +195,10 @@ public class Menu {
     return confirmationStep("Do you want to update the " + field + "?");
   }
 
-  private LocalDateTime dateInput(String message) {
+  private ZonedDateTime dateInput(String message) {
     System.out.println("");
     System.out.print(message + " (" + DateUtils.DATE_TIME_FORMAT + "): ");
-    return LocalDateTime.parse(s.nextLine(), DateUtils.DATE_TIME_FORMATTER);
+    return ZonedDateTime.parse(s.nextLine(), DateUtils.DATE_TIME_FORMATTER);
 
   }
 }

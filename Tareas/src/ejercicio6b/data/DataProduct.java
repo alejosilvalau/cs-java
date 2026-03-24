@@ -1,7 +1,7 @@
 package ejercicio6b.data;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 
 import ejercicio6b.entities.Product;
@@ -27,7 +27,7 @@ public class DataProduct {
           p.setPrice(rs.getDouble("price"));
           p.setStock(rs.getInt("stock"));
           p.setShippingIncluded(rs.getBoolean("shippingIncluded"));
-          p.setDisabledOn(rs.getObject("disabledOn", LocalDateTime.class));
+          p.setDisabledOn(rs.getObject("disabledOn", ZonedDateTime.class));
 
           prod.add(p);
         }
@@ -69,7 +69,7 @@ public class DataProduct {
         product.setPrice(rs.getDouble("price"));
         product.setStock(rs.getInt("stock"));
         product.setShippingIncluded(rs.getBoolean("shippingIncluded"));
-        product.setDisabledOn(rs.getObject("disabledOn", LocalDateTime.class));
+        product.setDisabledOn(rs.getObject("disabledOn", ZonedDateTime.class));
       } else {
         // If the product is not found, set its ID to -1 to indicate it doesn't exist
         product.setId(-1);

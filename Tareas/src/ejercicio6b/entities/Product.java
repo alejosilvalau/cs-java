@@ -1,7 +1,8 @@
 package ejercicio6b.entities;
 
-import java.time.LocalDateTime;
-import ejercicio6b.utils.*;
+import java.time.ZonedDateTime;
+
+import ejercicio6b.utils.DateUtils;
 
 public class Product {
   private int id;
@@ -10,7 +11,7 @@ public class Product {
   private double price;
   private int stock;
   private boolean shippingIncluded;
-  private LocalDateTime disabledOn;
+  private ZonedDateTime disabledOn;
 
   public int getId() {
     return id;
@@ -60,29 +61,27 @@ public class Product {
     this.shippingIncluded = shippingIncluded;
   }
 
-  public LocalDateTime getDisabledOn() {
+  public ZonedDateTime getDisabledOn() {
     return disabledOn;
   }
 
-  private String getDisabledOnFormatted() {
+  public String getDisabledOnFormatted() {
     return this.getDisabledOn() == null ? null : this.disabledOn.format(DateUtils.DATE_TIME_FORMATTER);
   }
 
-  public void setDisabledOn(LocalDateTime disabledOn) {
+  public void setDisabledOn(ZonedDateTime disabledOn) {
     this.disabledOn = disabledOn;
   }
 
   @Override
   public String toString() {
     return "\nProduct [id=" + this.getId() + ", name=" + this.getName() + ", price=" + this.getPrice()
-        + ", disabledOn="
-        + this.getDisabledOnFormatted() + "]";
+        + ", disabledOn=" + this.getDisabledOnFormatted() + "]";
   }
 
   public String toStringComplete() {
     return "\nProduct [id=" + this.getId() + ", name=" + this.getName() + ", description=" + this.getDescription()
         + ", price=" + this.getPrice() + ", stock=" + this.getStock() + ", shippingIncluded="
-        + this.isShippingIncluded() + ", disabledOn="
-        + this.getDisabledOnFormatted() + "]";
+        + this.isShippingIncluded() + ", disabledOn=" + this.getDisabledOnFormatted() + "]";
   }
 }

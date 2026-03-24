@@ -14,6 +14,7 @@ public class DbConnector {
   private final String db = "javaMarket2";
   private int conectados = 0;
   private Connection conn = null;
+  private String options = "?useLegacyDatetimeCode=false&serverTimezone=UTC";
 
   private DbConnector() {
     try {
@@ -33,7 +34,7 @@ public class DbConnector {
   public Connection getConn() {
     try {
       if (conn == null || conn.isClosed()) {
-        conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + db, user, password);
+        conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + db + options, user, password);
         conectados = 0;
       }
     } catch (SQLException e) {
